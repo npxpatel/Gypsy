@@ -10,7 +10,7 @@ export default function Signup() {
   const [isSignUp, setIsSignUp] = useState(false)
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-black">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>{isSignUp ? "Create an account" : "Sign in to your account"}</CardTitle>
@@ -46,7 +46,7 @@ export default function Signup() {
                 <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                    <Input id="phone" type="tel" placeholder="+91 (555) 000-0000" />
                   </div>
                   <Button className="w-full">Send Code</Button>
                 </div>
