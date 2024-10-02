@@ -1,13 +1,53 @@
-import { useState } from "react"
+import {  useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Github, Twitter } from "lucide-react"
+import axios from 'axios';
+import { useNavigate } from "react-router-dom"
 
-export default function Signup() {
+interface formData {
+  email: string,
+  password: string,
+}
+
+
+export default function Auth() {
+  const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false)
+  const [formData, setformData] = useState<formData>({
+    email: "",
+    password: "",
+  })
+
+  async function handleSubmitSignup(e: any): Promise<void> {
+    e.preventDefault();
+
+    try {
+        const response = await axios.post('http://localhost:3000/api/user/signup', formData);
+        console.log(response);
+        navigate('/role-selection');
+        
+    } catch (error) {
+        throw new Error("Error in signup"); 
+    }
+  }
+
+  async function handleSubmitSignin(e: any): Promise<void> {
+    e.preventDefault();
+
+    try {
+        const response = await axios.post('http://localhost:3000/api/user/signin', formData);
+        console.log(response);
+        navigate('/role-selection');
+    } catch (error) {
+        throw new Error("Error in signin")
+
+        }
+      }
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
@@ -31,13 +71,17 @@ export default function Signup() {
                 <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="m@example.com" />
+                    <Input id="email" type="email" placeholder="m@example.com"
+                      onChange={(e) => setformData({
+                        ...formData,
+                        email: e.target.value
+                      })} />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="password">Password</Label>
-                    <Input id="password" type="password" />
+                    <Input id="password" type="password" onChange={(e) => setformData({ ...formData, password: e.target.value })} />
                   </div>
-                  <Button className="w-full">{isSignUp ? "Sign Up" : "Sign In"}</Button>
+                  <Button className="w-full" onClick={ isSignUp ? handleSubmitSignup : handleSubmitSignin}>{isSignUp ? "Sign Up" : "Sign In"}</Button>
                 </div>
               </form>
             </TabsContent>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ChevronRight, Menu } from "lucide-react"
@@ -10,6 +10,7 @@ import SafetyImage2 from "@/assets/SafetyImage2.jpg"
 import InsuranceImage from "@/assets/InsuranceImage.jpg"
 
 export default function Home() {
+   const navigate = useNavigate();
   return (
     <div className="flex flex-col min-h-screen bg-black text-white">
       <header className="px-4 lg:px-6 h-16 flex items-center">
@@ -27,10 +28,11 @@ export default function Home() {
           <Link className="text-sm font-medium hover:text-gray-300" to="/">
             Help
           </Link>
-          <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+          <Button className="bg-[#276EF1] hover:bg-[#1C54B7] text-white" 
+                 onClick={ () => navigate("/auth")}>
             Log in
           </Button>
-          <Button className="bg-white text-black hover:bg-gray-200">Sign up</Button>
+          <Button className="bg-white text-black hover:bg-gray-200" onClick={ () => navigate("/auth")}>Sign up</Button>
         </nav>
         <Button variant="ghost" className="md:hidden ml-auto" size="icon">
           <Menu className="h-6 w-6" />
@@ -59,7 +61,7 @@ export default function Home() {
                   </form>
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm">
-                  <Link to="/" className="inline-flex items-center text-white hover:text-gray-300">
+                  <Link to="/auth" className="inline-flex items-center text-white hover:text-gray-300" >
                     Sign up to drive <ChevronRight className="ml-1 h-4 w-4" />
                   </Link>
                   <Link to="/" className="inline-flex items-center text-white hover:text-gray-300">
